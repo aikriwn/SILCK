@@ -15,6 +15,7 @@ class staff extends CI_Controller
         $this->load->model('get_data');
         $this->load->model('delete_data');
         $this->load->model('edit_data');
+        $this->load->model('daftar_rencana');
     }
     public function index()
     {
@@ -23,10 +24,11 @@ class staff extends CI_Controller
         $this->load->view('staff/template/footer');
     }
 
-    public function laporan_staff()
+    public function laporan_staff($id)
     {
+        $data['kgt'] = $this->daftar_rencana->tampil_edit($id);
         $this->load->view('staff/template/header');
-        $this->load->view('staff/laporan_staff');
+        $this->load->view('staff/laporan_staff', $data);
         $this->load->view('staff/template/footer');
     }
     public function laporan_harian()
@@ -70,10 +72,10 @@ class staff extends CI_Controller
 
         if ($hasil_query == 1) {
             echo $this->session->set_flashdata('message', 'Input berhasil!');
-            redirect('staff/laporan_staff');
+            redirect('staff/laporan_harian');
             //echo "Berhasil Disimpan";
         } else {
-            redirect('staff/laporan_staff');
+            redirect('staff/laporan_harian');
             //echo "Gagal Disimpan";
         }
     }

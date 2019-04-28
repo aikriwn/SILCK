@@ -41,26 +41,18 @@
               <div class="form-row">
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text" name="jabatan" id="firstName" class="form-control" placeholder="Email address" required="required">
-                    <label for="firstName">Jabatan</label>
-                  </div>
+                    <input type="text" name="Kelas" id="inputKelas" class="form-control" placeholder="Email address" required="required">
+                    <label for="inputKelas">Kelas</label> </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text" name="grade" id="lastName" class="form-control" placeholder="Password" required="required">
-                    <label for="lastName">Kelas</label>
+                    <input type="password" name="jabatan" id="inputJabatan" class="form-control" placeholder="Password" required="required">
+                    <label for="inputJabatan">Jabatan</label>
+                    <input type="hidden" name="id_jabatan" value="02">
                   </div>
                 </div>
               </div>
             </div>
-                <!-- <div class="col-md-6">
-                  <div class="form-label-group">
-                    <input type="password" name="pass"id="confirmPassword" class="form-control" placeholder="Confirm password" required="required">
-                    <label for="confirmPassword"</label>
-                  </div>
-                </div> -->
-              <!-- </div>
-            </div> -->
             <input type="submit" class="btn btn-primary btn-block" value="Daftar">
           </form>
           <div class="text-center">

@@ -14,6 +14,13 @@ class daftar_rencana extends CI_Model
     {
         return $this->db->where('id_harian_kepala', $id)->get('laporan_kepala')->result_array();
     }
+    public function tampil_kegiatan($id)
+    {
+        $this->db->select('kegiatan');
+        $this->db->from('laporan_kepala');
+        $this->db->where('id_harian_kepala', $id);
+        return $this->db->get()->result_array();
+    }
     public function edit($nama_tabel, $data)
     {
         return $this->db->where('id_harian_kepala', $data['id_harian_kepala'])->update($nama_tabel, $data);
@@ -22,5 +29,4 @@ class daftar_rencana extends CI_Model
     {
         return $this->db->where('id_harian_kepala', $id)->delete('laporan_kepala');
     }
-
 }

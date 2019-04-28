@@ -6,6 +6,7 @@ class login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('login_model');
+        $this->load->model('insert_data');
     }
 
     public function index()
@@ -24,7 +25,25 @@ class login extends CI_Controller
 
     public function registrasi()
     {
-
+        $hasil_query = false;
+        $data = array(
+            'nama' => $this->input->post('NamaLengkap'),
+            'username' => $this->input->post('Username'),
+            'nomor_induk' => $this->input->post('NIP'),
+            'password' => $this->input->post('password'),
+            'grade' => $this->input->post('Kelas'),
+            'jabatan' => $this->input->post('jabatan'),
+            'id_jabatan' => $this->input->post('id_jabatan'),
+        );
+        $hasil_query = $this->insert_data->insertData('user', $data);
+        if ($hasil_query == 1) {
+            //berhasil
+            echo $this->session->set_flashdata('message', 'Daftar berhasil!');
+            redirect('login');
+        } else {
+            //gagal
+            redirect('login/daftar');
+        }
     }
     public function proses_login()
     {
@@ -55,20 +74,15 @@ class login extends CI_Controller
             } else {
                 redirect(base_url('staff'));
             }
-
         } else {
             echo $this->session->set_flashdata('message', 'Login gagal!');
             redirect(base_url());
         }
-
-
-
     }
 
     public function logout()
     {
         $this->session->sess_destroy(); #endregion
         redirect(base_url('login'));
-
     }
 }
