@@ -30,6 +30,9 @@
         <div class="text-center">
           <a class="d-block small mt-3" href="<?= base_url('login/daftar'); ?>">Belum punya Akun? Daftar Disini</a>
         </div>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="<?= base_url('login/admin'); ?>">Login Sebagai Admin</a>
+        </div>
       </div>
     </div>
   </div>
