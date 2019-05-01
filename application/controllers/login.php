@@ -45,10 +45,11 @@ class login extends CI_Controller
         $hasil_query = $this->insert_data->insertData('user', $data);
         if ($hasil_query == 1) {
             //berhasil
-            echo $this->session->set_flashdata('message', 'Daftar berhasil!');
+            echo $this->session->set_flashdata('message', 'Pendaftaran berhasil!');
             redirect('login');
         } else {
             //gagal
+            echo $this->session->set_flashdata('message', 'Pendaftaran gagal!');
             redirect('login/daftar');
         }
     }
@@ -61,7 +62,7 @@ class login extends CI_Controller
 
         if ($login = $this->login_model->auth($data)->num_rows() > 0) {
             $data_user = $this->login_model->auth($data)->row();
-            # code...
+            
             if ($data_user->id_jabatan == 01) {
                 $status = 'login Kepala';
             } else {
@@ -73,8 +74,7 @@ class login extends CI_Controller
                 'id_user' => $data_user->id_user,
                 'status' => $status
             );
-
-            // var_dump($data_session);
+            
             $this->session->set_userdata($data_session);
             if ($status == 'login Kepala') {
                 redirect(base_url('kepala'));
@@ -96,7 +96,6 @@ class login extends CI_Controller
 
         if ($login = $this->login_model->auth($data)->num_rows() > 0) {
             $data_user = $this->login_model->auth($data)->row();
-            # code...
             if ($data_user->admin == 01) {
                 $status = 'admin';
             } else {
@@ -109,8 +108,7 @@ class login extends CI_Controller
                 'status' => $status,
                 'admin' => $admin
             );
-
-            // var_dump($data_session);
+            
             $this->session->set_userdata($data_session);
             if ($status == 'admin') {
                 redirect(base_url('admin'));
