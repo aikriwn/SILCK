@@ -14,6 +14,8 @@ class admin extends CI_Controller
         $this->load->model('daftar_rencana');
         $this->load->model('daftar_karyawan');
         $this->load->model('harian_model');
+        $this->load->model('user');
+        $this->load->model('edit_data');
     }
     public function index()
     {
@@ -24,7 +26,7 @@ class admin extends CI_Controller
 
     public function daftar_pengguna()
     {
-        $data['karyawan'] = $this->daftar_karyawan->getStaff();
+        $data['pengguna'] = $this-> user->getUser();
         $this->load->view('admin/template/header');
         $this->load->view('admin/daftar_pengguna', $data);
         $this->load->view('admin/template/footer');
@@ -32,31 +34,11 @@ class admin extends CI_Controller
 
     public function verifikasi_pengguna()
     {
-        $data['karyawan'] = $this->daftar_karyawan->getStaff();
+        $data['pengguna'] = $this-> user->getUnverified();
         $this->load->view('admin/template/header');
-        $this->load->view('admin/daftar_pengguna', $data);
+        $this->load->view('admin/verifikasi_pengguna', $data);
         $this->load->view('admin/template/footer');
     }
-
-    public function laporan_admin()
-    {
-        $this->load->view('admin/template/header');
-        $this->load->view('admin/laporan_kepala');
-        $this->load->view('admin/template/footer');
-    }
-    public function laporan_harian()
-    {
-        $data['harian'] = $this->harian_model->getData();
-        $this->load->view('admin/template/header');
-        $this->load->view('admin/laporan_harian', $data);
-        $this->load->view('admin/template/footer');
-    }
-    // public function laporan_bulanan()
-    // {
-    //     $this->load->view('admin/template/header');
-    //     $this->load->view('admin/laporan_bulanan');
-    //     $this->load->view('admin/template/footer');
-    // }
 
     public function daftar_perencanaan()
     {
@@ -66,89 +48,86 @@ class admin extends CI_Controller
         $this->load->view('admin/template/footer');
     }
 
-    public function verifikasi_registrasi()
+    public function hapus_pengguna($id)
     {
+        $this->user->delete_user($id);
+        echo $this->session->set_flashdata('message', 'Data berhasil dihapus!');
+        redirect('admin/daftar_pengguna');
+    }
+    public function batal_pengguna($id)
+    {
+        $this->user->delete_user($id);
+        echo $this->session->set_flashdata('message', 'Data berhasil dihapus!');
+        redirect('admin/verifikasi_pengguna');
+    }
+
+    public function edit_pengguna($id)
+    {
+        $data['edit'] = $this-> user->tampil_edit($id);;
         $this->load->view('admin/template/header');
-        $this->load->view('admin/verifikasi_registrasi');
+        $this->load->view('admin/edit_pengguna', $data);
         $this->load->view('admin/template/footer');
     }
 
-    public function hapusRencana($id)
+    public function edit_verifikasi($id)
     {
-        $this->daftar_rencana->delete($id);
-        echo $this->session->set_flashdata('message', 'Data berhasil dihapus!');
-        redirect('admin/daftar_perencanaan');
-    }
-    public function editRencana($id)
-    {
-        $data['edit'] = $this->daftar_rencana->tampil_edit($id);;
+        $data['edit'] = $this-> user->tampil_edit($id);;
         $this->load->view('admin/template/header');
-        $this->load->view('admin/edit_rencana', $data);
+        $this->load->view('admin/edit_verifikasi', $data);
         $this->load->view('admin/template/footer');
     }
+
     public function edit()
     {
         $hasil_query = false;
-        if ($this->session->userdata('id_jabatan') == '01') {
+
             $data = array(
-                'id_user' => $this->session->userdata('id_user'),
-                'id_harian_kepala' => $this->input->post('id_harian_kepala'),
-                'hari' => $this->input->post('hari'),
-                'tanggal' => $this->input->post('tanggal'),
-                'waktu' => $this->input->post('waktu'),
-                'kegiatan' => $this->input->post('kegiatan'),
-                'sifat_order' => $this->input->post('order'),
-                'jenis_peralatan' => $this->input->post('peralatan'),
-                'petugas' => $this->input->post('petugas'),
-                'produser' => $this->input->post('produser'),
+                'id_user' => $this->input->post('id_user'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password'),
+                'nomor_induk' => $this->input->post('nomor_induk'),
+                'nama' => $this->input->post('nama'),
+                'id_jabatan' => $this->input->post('id_jabatan'),
+                'jabatan' => $this->input->post('jabatan'),
+                'grade' => $this->input->post('grade'),
+                'admin' => $this->input->post('admin')
             );
-            $hasil_query = $this->daftar_rencana->edit('laporan_kepala', $data);
-
-        } else {
-
-            // $hasil_query = $this->daftar_rencana->insertData(' laporan_staff', $data);
-
-        }
+            $hasil_query = $this->edit_data->edit_user('user', $data);
 
         if ($hasil_query == 1) {
             //berhasil
             echo $this->session->set_flashdata('message', 'Edit berhasil!');
-            redirect('admin/daftar_perencanaan');
+            redirect('admin/daftar_pengguna');
         } else {
             //gagal
-            redirect('admin/laporan_kepala');
+            redirect('admin/daftar_pengguna');
         }
     }
 
-
-
-    public function insert_rencana()
+    public function verifikasi()
     {
         $hasil_query = false;
-        if ($this->session->userdata('id_jabatan') == '01') {
-            $data = array(
-                'id_user' => $this->session->userdata('id_user'),
-                'hari' => $this->input->post('hari'),
-                'tanggal' => $this->input->post('tanggal'),
-                'waktu' => $this->input->post('waktu'),
-                'kegiatan' => $this->input->post('kegiatan'),
-                'sifat_order' => $this->input->post('order'),
-                'jenis_peralatan' => $this->input->post('peralatan'),
-                'petugas' => $this->input->post('petugas'),
-                'produser' => $this->input->post('produser'),
-            );
-            $hasil_query = $this->daftar_rencana->insertData('laporan_kepala', $data);
 
-        } else {
-         // $hasil_query = $this->daftar_rencana->insertData(' laporan_staff', $data);
-        }
+            $data = array(
+                'id_user' => $this->input->post('id_user'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password'),
+                'nomor_induk' => $this->input->post('nomor_induk'),
+                'nama' => $this->input->post('nama'),
+                'id_jabatan' => $this->input->post('id_jabatan'),
+                'jabatan' => $this->input->post('jabatan'),
+                'grade' => $this->input->post('grade'),
+                'admin' => $this->input->post('admin')
+            );
+            $hasil_query = $this->edit_data->edit_user('user', $data);
+
         if ($hasil_query == 1) {
             //berhasil
-            echo $this->session->set_flashdata('message', 'Input berhasil!');
-            redirect('admin/daftar_perencanaan');
+            echo $this->session->set_flashdata('message', 'Edit berhasil!');
+            redirect('admin/verifikasi_pengguna');
         } else {
             //gagal
-            redirect('admin/laporan_kepala');
+            redirect('admin/verifikasi_pengguna');
         }
     }
 }

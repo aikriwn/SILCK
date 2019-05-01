@@ -1,3 +1,29 @@
+<script>
+    var msg = "<?= $this->session->flashdata('message'); ?>"
+    if(msg){
+      swal("",msg,"success");
+    }
+
+    function hapusdata(data){
+      swal({
+        title: "Anda yakin data akan dihapus?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location = data;
+          // swal("Poof! Your imaginary file has been deleted!", {  
+          //   icon: "success",
+          // });
+        } else {
+          //swal("Your imaginary file is safe!");
+        }
+      });
+    }
+</script>
 <!-- Footer -->
 <footer class="page-footer font-small mdb-color lighten-3 pt-4">
     <!-- Footer Links -->

@@ -25,18 +25,22 @@
                       <th>Nama</th>
                       <th>Jabatan</th>
                       <th>Grade</th>
-                      <th>Admin</th>
+                      <th>Status Admin</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                  <?php foreach ($karyawan as $staff) { ?>
+                  <?php foreach ($pengguna as $user) { ?>
                     <tr>
-                      <td><?php echo $staff['username']; ?></td>
-                      <td><?php echo $staff['nomor_induk']; ?></td>
-                      <td><?php echo $staff['nama']; ?></td>
-                      <td><?php echo $staff['jabatan']; ?></td>
-                      <td><?php echo $staff['grade']; ?></td>
-                      <td><?php echo $staff['admin']; ?></td>
+                      <td><?php echo $user['username']; ?></td>
+                      <td><?php echo $user['nomor_induk']; ?></td>
+                      <td><?php echo $user['nama']; ?></td>
+                      <td><?php echo $user['jabatan']; ?></td>
+                      <td><?php echo $user['grade']; ?></td>
+                      <td><?php echo $user['admin']; ?></td>
+                      <td><a href="<?php echo base_url(); ?>admin/edit_pengguna/<?= $user['id_user']; ?>"><button class="badge badge-primary float-center">Edit</button></a>
+                     <button class="badge badge-danger float-center" onclick="hapusdata('<?php echo base_url(); ?>admin/hapus_pengguna/<?= $user['id_user']; ?>')">Hapus</button></a>
+                    </td>
                     </tr>
                  <?php 
               } ?>

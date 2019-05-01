@@ -11,4 +11,9 @@ class edit_data extends CI_Model
     {
         return $this->db->where('id_harian_staff', $data['id_harian_staff'])->update($nama_tabel, $data);
     }
+
+    public function edit_user($nama_tabel, $data)
+    {
+        return $this->db->where('id_user', $data['id_user'])->update($nama_tabel, $data);
+    }
 }
