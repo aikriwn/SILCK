@@ -34,8 +34,7 @@
           <a class="d-block small mt-3" href="<?= base_url('login/admin'); ?>">Login Sebagai Admin</a>
         </div>
       </div>
-    </div>
-  </div>
+    </div></div>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
     var msg = "<?= $this->session->flashdata('message'); ?>"
