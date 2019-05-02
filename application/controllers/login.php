@@ -38,9 +38,10 @@ class login extends CI_Controller
             'username' => $this->input->post('Username'),
             'nomor_induk' => $this->input->post('NIP'),
             'password' => $this->input->post('password'),
-            'grade' => $this->input->post('Kelas'),
-            'jabatan' => $this->input->post('jabatan'),
-            'id_jabatan' => $this->input->post('id_jabatan'),
+            'grade' => $this->input->post('default'),
+            'jabatan' => $this->input->post('default'),
+            'id_jabatan' => $this->input->post('default'),
+            'admin' => $this->input->post('default'),
         );
         $hasil_query = $this->insert_data->insertData('user', $data);
         if ($hasil_query == 1) {
@@ -62,11 +63,13 @@ class login extends CI_Controller
 
         if ($login = $this->login_model->auth($data)->num_rows() > 0) {
             $data_user = $this->login_model->auth($data)->row();
-            
+
             if ($data_user->id_jabatan == 01) {
                 $status = 'login Kepala';
-            } else {
+            } else  if ($data_user->id_jabatan == 02) {
                 $status = 'login staff';
+            } else {
+                $status = 'not verified';
             }
             $data_session = array(
                 'username' => $data['username'],
@@ -74,12 +77,15 @@ class login extends CI_Controller
                 'id_user' => $data_user->id_user,
                 'status' => $status
             );
-            
+
             $this->session->set_userdata($data_session);
             if ($status == 'login Kepala') {
                 redirect(base_url('kepala'));
-            } else {
+            } else if ($status == 'login staff') {
                 redirect(base_url('staff'));
+            } else {
+                echo $this->session->set_flashdata('message', 'Akun Anda Belum Diverifikasi!!!');
+                redirect(base_url('login'));
             }
         } else {
             echo $this->session->set_flashdata('message', 'Login gagal!');
@@ -108,7 +114,7 @@ class login extends CI_Controller
                 'status' => $status,
                 'admin' => $admin
             );
-            
+
             $this->session->set_userdata($data_session);
             if ($status == 'admin') {
                 redirect(base_url('admin'));
