@@ -15,10 +15,10 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-comments"></i>
                   </div>
-                  <h5>Verifikasi Registrasi</h5>
-                  <div class="mr-5">26 New Messages!</div>
+                  <h5>Perencanaan</h5>
+                  <div class="mr-5">Input Data Perencanaan</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="<?php echo base_url('admin/verifikasi_registrasi'); ?>">
+                <a class="card-footer text-white clearfix small z-1" href="<?php echo base_url('kepala/laporan_kepala'); ?>">
                   <span class="float-left">Baca Selengkapnya</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -32,10 +32,10 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-list"></i>
                   </div>
-                  <h5>Pesan Masuk</h5>
-                  <div class="mr-5">11 New Tasks!</div>
+                  <h5>Daftar Staff</h5>
+                  <div class="mr-5">Lihat Daftar Staff</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="<?php echo base_url('kepala/daftar_karyawan'); ?>">
                   <span class="float-left">Baca Selengkapnya</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -49,9 +49,9 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                   </div>
-                  <div class="mr-5">123 New Orders!</div>
+                  <div class="mr-5">Laporan Perencanaan</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="<?php echo base_url('kepala/daftar_perencanaan'); ?>">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -65,9 +65,9 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-life-ring"></i>
                   </div>
-                  <div class="mr-5">13 New Tickets!</div>
+                  <div class="mr-5">Laporan Harian Staff</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="<?php echo base_url('kepala/laporan_harian'); ?>">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>

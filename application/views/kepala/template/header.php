@@ -51,7 +51,7 @@
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('kepala/daftar_karyawan'); ?>">
             <i class="fas fa-fw fa-table"></i>
-            <span>Daftar Karyawan</span>
+            <span>Daftar Staff</span>
           </a>
         </li>
         <li class="nav-item">
